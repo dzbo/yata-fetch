@@ -17,7 +17,7 @@ describe('yata library', function() {
     it('return exception if no token in ENV', function() {
       expect(() => {
         yata.validateConfig();
-      }).to.throw('YATA_API_TOKEN');
+      }).to.throw('token');
     });
 
     it('return exception if no project', function() {

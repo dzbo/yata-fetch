@@ -17,7 +17,7 @@ module.exports = async function() {
 
   try {
     if (yata.validateConfig(
-      nconf.get('YATA_API_TOKEN'),
+      nconf.get(nconf.get('token')),
       nconf.get('project'),
       nconf.get('locales'),
       nconf.get('format'),

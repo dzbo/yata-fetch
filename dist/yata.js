@@ -27,7 +27,7 @@ module.exports = {
 
   validateConfig(token, project, locales, format, root, outputPath) {
     if (!token) {
-      throw new Error('No `YATA_API_TOKEN` in ENV');
+      throw new Error('No `token` in ENV');
     } else {
       this.token = token;
     }

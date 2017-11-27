@@ -1,4 +1,5 @@
 {
+  "token": "YATA_DEV_TOKEN",
   "project": "1",
   "locales": [
     "pl_PL", "de_DE"

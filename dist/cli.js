@@ -18,7 +18,7 @@ module.exports = _asyncToGenerator(function* () {
   yata.apiHost = nconf.get('YATA_API_HOST') || 'http://api.yatapp.net/';
 
   try {
-    if (yata.validateConfig(nconf.get('YATA_API_TOKEN'), nconf.get('project'), nconf.get('locales'), nconf.get('format'), nconf.get('root'), nconf.get('outputPath'))) {
+    if (yata.validateConfig(nconf.get(nconf.get('token')), nconf.get('project'), nconf.get('locales'), nconf.get('format'), nconf.get('root'), nconf.get('outputPath'))) {
 
       // if passed locale explicit download just one
       if (nconf.get('locale')) {
