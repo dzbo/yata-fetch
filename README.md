@@ -1,5 +1,7 @@
 # yata-fetch
 
+[![CircleCI](https://circleci.com/gh/dzbo/yata-fetch/tree/master.svg?style=svg)](https://circleci.com/gh/dzbo/yata-fetch/tree/master)
+
 Adds CLI interface for importing translation files (yml, json etc.) from [Yata](http://www.yatapp.net/).
 
 ## Installation
