@@ -1,0 +1,9 @@
+{
+  "project": "1",
+  "locales": [
+    "pl_PL", "de_DE"
+  ],
+  "format": "yml",
+  "root": false,
+  "outputPath": "./translations"
+}

@@ -1,0 +1,44 @@
+{
+  "name": "yata-fetch",
+  "version": "0.0.1",
+  "description": "Adds CLI interface for importing translation files from Yata",
+  "license": "MIT",
+  "main": "./dist/yata",
+  "author": "Dominik Zborowski <dominik.zborowski@gmail.com>",
+  "keywords": [
+    "yata",
+    "translations",
+    "i18n",
+    "locale",
+    "yatapp"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dzbo/yata-fetch.git"
+  },
+  "bin": {
+    "yata-fetch": "./bin/yata-fetch.js"
+  },
+  "scripts": {
+    "test": "gulp test",
+    "start": "gulp",
+    "s": "gulp",
+    "build": "gulp build",
+    "generate": "node bin/yata-fetch.js --config test/fixtures/yata.json"
+  },
+  "dependencies": {
+    "nconf": "^0.9.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.2",
+    "babel-preset-es2017": "^6.24.1",
+    "chai": "^4.1.2",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
+    "gulp-eslint": "^4.0.0",
+    "gulp-mocha": "^4.3.1",
+    "gulp-sourcemaps": "^2.6.1",
+    "mock-fs": "^4.4.2"
+  }
+}
