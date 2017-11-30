@@ -1,6 +1,6 @@
 {
   "name": "yata-fetch",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Adds CLI interface for importing translation files from Yata",
   "license": "MIT",
   "main": "./dist/yata",
