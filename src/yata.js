@@ -79,11 +79,11 @@ module.exports = {
     const filePath = path.join(process.cwd(), `${this.outputPath}/${fileName}`);
     const url = `${this.apiHost}/api/v1/project/${this.project}/${locale}/${this.format}?apiToken=${this.token}&root=${this.root}`;
 
-    let fileSize = 0;
+    let bufferFile;
 
     // if file exist we grab it's size
     if (fs.existsSync(filePath)) {
-      fileSize = fs.statSync(filePath).size;
+      bufferFile = fs.readFileSync(filePath);
     }
 
     // we start stream
@@ -99,9 +99,9 @@ module.exports = {
 
         response.pipe(file);
         file.on('finish', () => {
-          const newFileSize = fs.statSync(filePath).size;
+          const newBufferFile = fs.readFileSync(filePath);
 
-          if (newFileSize === fileSize) {
+          if (bufferFile.equals(newBufferFile)) {
             log('yellow', `Generating "${locale}" translation. Skipped.`);
           } else {
             log('green', `Generating "${locale}" translation. Done.`);
