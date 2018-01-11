@@ -27,11 +27,11 @@
     "generate": "node bin/yata-fetch.js --config test/fixtures/yata.json"
   },
   "dependencies": {
-    "nconf": "^0.9.1"
+    "nconf": "^0.10.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "babel-eslint": "^8.0.2",
+    "babel-eslint": "^8.2.1",
     "babel-preset-es2017": "^6.24.1",
     "chai": "^4.1.2",
     "gulp": "^3.9.1",
