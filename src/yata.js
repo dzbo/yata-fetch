@@ -101,7 +101,7 @@ module.exports = {
         file.on('finish', () => {
           const newBufferFile = fs.readFileSync(filePath);
 
-          if (bufferFile.equals(newBufferFile)) {
+          if (bufferFile && bufferFile.equals(newBufferFile)) {
             log('yellow', `Generating "${locale}" translation. Skipped.`);
           } else {
             log('green', `Generating "${locale}" translation. Done.`);
