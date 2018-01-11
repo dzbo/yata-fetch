@@ -36,9 +36,9 @@
     "chai": "^4.1.2",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
-    "gulp-eslint": "^4.0.0",
+    "gulp-eslint": "^4.0.1",
     "gulp-mocha": "^4.3.1",
-    "gulp-sourcemaps": "^2.6.1",
+    "gulp-sourcemaps": "^2.6.3",
     "mock-fs": "^4.4.2"
   }
 }
