@@ -86,8 +86,8 @@ describe('yata library', function() {
     });
 
 
-    it('work underscore notation', function() {
-      expect(yata.normalizeLocale('en_US')).to.equal('en-us');
+    it('work ISO notation', function() {
+      expect(yata.normalizeLocale('en-us')).to.equal('en_US');
     });
 
     it('work with simple notation', function() {
@@ -95,7 +95,7 @@ describe('yata library', function() {
     });
 
     it('work with already correct version', function() {
-      expect(yata.normalizeLocale('en-us')).to.equal('en-us');
+      expect(yata.normalizeLocale('en_US')).to.equal('en_US');
     });
   });
 });

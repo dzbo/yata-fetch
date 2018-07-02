@@ -62,7 +62,16 @@ module.exports = {
   normalizeLocale(locale) {
     if (!locale) { return; }
 
-    return locale.toLowerCase().replace('_', '-');
+    const localeSegments = locale.replace('-', '_').split('_');
+    let newLocale = [];
+    newLocale.push(localeSegments[0].toLowerCase());
+
+    // two segment locale
+    if (localeSegments[1]) {
+      newLocale.push(localeSegments[1].toUpperCase());
+    }
+
+    return newLocale.join('_');
   },
 
   downloadTranslation(locale) {
