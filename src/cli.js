@@ -22,7 +22,8 @@ module.exports = async function() {
       nconf.get('locales'),
       nconf.get('format'),
       nconf.get('root'),
-      nconf.get('outputPath'))) {
+      nconf.get('outputPath'),
+      nconf.get('strip_empty'))) {
 
       // if passed locale explicit download just one
       if (nconf.get('locale')) {
