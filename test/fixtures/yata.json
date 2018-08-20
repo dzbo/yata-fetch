@@ -6,5 +6,6 @@
   ],
   "format": "yml",
   "root": false,
-  "outputPath": "./translations"
+  "outputPath": "./translations",
+  "strip_empty": true
 }

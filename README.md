@@ -37,7 +37,8 @@ Example `yata.json` file:
   ],
   "format": "yml",
   "root": false,
-  "outputPath": "./translations"
+  "outputPath": "./translations",
+  "strip_empty": true
 }
 ```
 
@@ -49,6 +50,7 @@ Example `yata.json` file:
   will contain locale as root element
 * `outputPath` (string, optional, default: './translations') - path where
   files will be generated
+* `strip_empty` (boolean, optional, default: false) - if set to `true` parser will omnit empty keys from generation and export only those that have text
 
 ### Fetching translations
 

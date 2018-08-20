@@ -50,11 +50,12 @@ describe('yata library', function() {
       expect(validation).to.be.true;
       expect(yata.format).to.equal('yml');
       expect(yata.root).to.be.false;
+      expect(yata.stripEmpty).to.be.false;
       expect(yata.outputPath).to.be.equal('translations');
     });
 
     it('passes validaiton when passing all params', function() {
-      const validation = yata.validateConfig('token', 'project', ['pl_PL'], 'json', true, 'locales');
+      const validation = yata.validateConfig('token', 'project', ['pl_PL'], 'json', true, 'locales', true);
 
       expect(validation).to.be.true;
       expect(yata.token).to.equal('token');
@@ -62,6 +63,7 @@ describe('yata library', function() {
       expect(yata.locales).to.deep.equal(['pl_PL']);
       expect(yata.format).to.equal('json');
       expect(yata.root).to.be.true;
+      expect(yata.stripEmpty).to.be.true;
       expect(yata.outputPath).to.be.equal('locales');
     });
   });
