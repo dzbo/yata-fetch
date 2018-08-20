@@ -13,6 +13,7 @@ module.exports = {
   format: 'yml',
   root: false,
   outputPath: 'translations',
+  stripEmpty: false,
   apiHost: null,
 
   getConfigPath(configPath) {
@@ -25,7 +26,7 @@ module.exports = {
     return this.configPath;
   },
 
-  validateConfig(token, project, locales, format, root, outputPath) {
+  validateConfig(token, project, locales, format, root, outputPath, stripEmpty) {
     if (!token) {
       throw new Error('No `token` in ENV');
     } else {
@@ -54,6 +55,10 @@ module.exports = {
 
     if (outputPath && typeof outputPath === 'string') {
       this.outputPath = outputPath;
+    }
+
+    if (stripEmpty && typeof stripEmpty === 'boolean') {
+      this.stripEmpty = stripEmpty;
     }
 
     return true;
@@ -90,7 +95,7 @@ module.exports = {
 
     const fileName = `${normalizedLocale}.${this.format}`;
     const filePath = path.join(process.cwd(), `${this.outputPath}/${fileName}`);
-    const url = `${this.apiHost}/api/v1/project/${this.project}/${locale}/${this.format}?apiToken=${this.token}&root=${this.root}`;
+    const url = `${this.apiHost}/api/v1/project/${this.project}/${locale}/${this.format}?apiToken=${this.token}&root=${this.root}&strip_empty=${this.stripEmpty}`;
 
     let bufferFile;
 
