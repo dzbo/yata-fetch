@@ -1,4 +1,4 @@
-const http = require('http');
+const https = require('https');
 const fs = require('fs');
 const path = require('path');
 const log = require('./log');
@@ -104,7 +104,7 @@ module.exports = {
     const file = fs.createWriteStream(filePath);
 
     return new Promise((resolve, reject) => {
-      http.get(url, response => {
+      https.get(url, response => {
         const { statusCode } = response;
 
         if (statusCode !== 200) {
