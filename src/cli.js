@@ -13,7 +13,7 @@ module.exports = async function() {
   nconf.file({ file: yata.getConfigPath(nconf.get('config')) });
 
   // setup API host
-  yata.apiHost = nconf.get('YATA_API_HOST') || 'http://api.yatapp.net/';
+  yata.apiHost = nconf.get('YATA_API_HOST') || 'https://api.yatapp.net/';
 
   try {
     if (yata.validateConfig(

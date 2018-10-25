@@ -15,7 +15,7 @@ module.exports = _asyncToGenerator(function* () {
   nconf.file({ file: yata.getConfigPath(nconf.get('config')) });
 
   // setup API host
-  yata.apiHost = nconf.get('YATA_API_HOST') || 'http://api.yatapp.net/';
+  yata.apiHost = nconf.get('YATA_API_HOST') || 'https://api.yatapp.net/';
 
   try {
     if (yata.validateConfig(nconf.get(nconf.get('token')), nconf.get('project'), nconf.get('locales'), nconf.get('format'), nconf.get('root'), nconf.get('outputPath'), nconf.get('strip_empty'))) {
