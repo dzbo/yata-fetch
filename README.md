@@ -2,13 +2,13 @@
 
 [![CircleCI](https://circleci.com/gh/dzbo/yata-fetch/tree/master.svg?style=svg)](https://circleci.com/gh/dzbo/yata-fetch/tree/master)
 
-Adds CLI interface for importing translation files (yml, json etc.) from [Yata](http://www.yatapp.net/).
+Welcome to Yata integration package, this package will allow you to easy get your translations from http://yatapp.net service.
 
 ## Installation
 
 Simply install via [yarn](https://yarnpkg.com) package manager:
 
-`yarn add yata-fetch`
+`yarn add yata-fetch -D`
 
 ## Usage
 
