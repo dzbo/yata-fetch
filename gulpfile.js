@@ -2,7 +2,7 @@ const gulp       = require('gulp');
 const mocha      = require('gulp-mocha');
 const eslint     = require('gulp-eslint');
 const sourcemaps = require('gulp-sourcemaps');
-const babel = require('gulp-babel');
+const babel      = require('gulp-babel');
 
 // Lint
 
@@ -33,20 +33,27 @@ gulp.task('babel:src', function() {
   return gulp.src('./src/**/*.js')
     .pipe(sourcemaps.init())
     .pipe(babel({
-        presets: ['es2017']
+      presets: ['@babel/preset-env'],
+      "plugins": [
+        ["@babel/plugin-transform-runtime",
+          {
+            "regenerator": true
+          }
+        ]
+      ]
     }))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('build', ['lint:src', 'babel:src']);
+gulp.task('build', gulp.series('lint:src', 'babel:src'));
 
 // Tests tasks
 
-gulp.task('test', ['lint:test', 'lint:src', 'lint:bin', 'babel:src'], () =>
+gulp.task('test', gulp.series('lint:test', 'lint:src', 'lint:bin', 'babel:src', () =>
 	gulp.src('./test/**/*.js', { read: false })
 		.pipe(mocha())
-);
+));
 
 // Watch tasks
 
@@ -56,4 +63,4 @@ gulp.task('watch', function() {
   gulp.watch('bin/**/*.js', ['test']);
 });
 
-gulp.task('default', ['test', 'watch']);
+gulp.task('default', gulp.series('test', 'watch'));

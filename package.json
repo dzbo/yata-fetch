@@ -1,6 +1,6 @@
 {
   "name": "yata-fetch",
-  "version": "1.1.2",
+  "version": "1.2.1",
   "description": "Adds CLI interface for importing translation files from Yata",
   "license": "MIT",
   "main": "./dist/yata",
@@ -30,15 +30,17 @@
     "nconf": "^0.10.0"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.5",
-    "babel-preset-es2017": "^6.24.1",
-    "chai": "^4.1.2",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^7.0.1",
-    "gulp-eslint": "^4.0.2",
-    "gulp-mocha": "^6.0.0",
-    "gulp-sourcemaps": "^2.6.4",
-    "mock-fs": "^4.5.0"
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/runtime": "^7.9.2",
+    "babel-eslint": "^10.1.0",
+    "chai": "^4.2.0",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-eslint": "^6.0.0",
+    "gulp-mocha": "^7.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "mock-fs": "^4.11.0"
   }
 }
