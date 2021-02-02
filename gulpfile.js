@@ -58,9 +58,9 @@ gulp.task('test', gulp.series('lint:test', 'lint:src', 'lint:bin', 'babel:src', 
 // Watch tasks
 
 gulp.task('watch', function() {
-  gulp.watch('test/**/*.js', ['test']);
-  gulp.watch('src/**/*.js', ['test']);
-  gulp.watch('bin/**/*.js', ['test']);
+  gulp.watch('test/**/*.js', gulp.series('test'));
+  gulp.watch('src/**/*.js', gulp.series('test'));
+  gulp.watch('bin/**/*.js', gulp.series('test'));
 });
 
 gulp.task('default', gulp.series('test', 'watch'));
