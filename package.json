@@ -1,5 +1,5 @@
 {
-  "name": "@dzbo/yata-fetch",
+  "name": "yata-fetch",
   "version": "1.2.11",
   "description": "Adds CLI interface for importing translation files from Yata",
   "license": "MIT",
@@ -15,9 +15,6 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/dzbo/yata-fetch.git"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   },
   "bin": {
     "yata-fetch": "./bin/yata-fetch.js"
