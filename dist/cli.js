@@ -12,11 +12,13 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-var yata = require('./yata');
+var yata = require("./yata");
 
-var nconf = require('nconf');
+var nconf = require("nconf");
 
-var log = require('./log');
+var log = require("./log");
+
+require("dotenv").config();
 
 module.exports = /*#__PURE__*/(0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee() {
   var _iterator, _step, locale;
@@ -31,24 +33,24 @@ module.exports = /*#__PURE__*/(0, _asyncToGenerator2["default"])( /*#__PURE__*/_
           nconf.env(); // load config path
 
           nconf.file({
-            file: yata.getConfigPath(nconf.get('config'))
+            file: yata.getConfigPath(nconf.get("config"))
           }); // setup API host
 
-          yata.apiHost = nconf.get('YATA_API_HOST') || 'https://api.yatapp.net';
+          yata.apiHost = nconf.get("YATA_API_HOST") || "https://api.yatapp.net";
           _context.prev = 4;
 
-          if (!yata.validateConfig(nconf.get(nconf.get('token')), nconf.get('project'), nconf.get('locales'), nconf.get('format'), nconf.get('root'), nconf.get('outputPath'), nconf.get('strip_empty'))) {
+          if (!yata.validateConfig(nconf.get(nconf.get("token")), nconf.get("project"), nconf.get("locales"), nconf.get("format"), nconf.get("root"), nconf.get("outputPath"), nconf.get("strip_empty"))) {
             _context.next = 28;
             break;
           }
 
-          if (!nconf.get('locale')) {
+          if (!nconf.get("locale")) {
             _context.next = 11;
             break;
           }
 
           _context.next = 9;
-          return yata.downloadTranslation(nconf.get('locale'));
+          return yata.downloadTranslation(nconf.get("locale"));
 
         case 9:
           _context.next = 28;
@@ -98,7 +100,7 @@ module.exports = /*#__PURE__*/(0, _asyncToGenerator2["default"])( /*#__PURE__*/_
         case 30:
           _context.prev = 30;
           _context.t1 = _context["catch"](4);
-          log('red', _context.t1);
+          log("red", _context.t1);
 
         case 33:
         case "end":

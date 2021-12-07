@@ -1,23 +1,23 @@
 "use strict";
 
-var https = require('https');
+var https = require("https");
 
-var fs = require('fs');
+var fs = require("fs");
 
-var path = require('path');
+var path = require("path");
 
-var log = require('./log');
+var log = require("./log");
 
 module.exports = {
   config: null,
-  defaultConfigPath: './yata.json',
+  defaultConfigPath: "./yata.json",
   configPath: null,
   token: null,
   project: null,
   locales: [],
-  format: 'yml',
+  format: "yml",
   root: false,
-  outputPath: 'translations',
+  outputPath: "translations",
   stripEmpty: false,
   apiHost: null,
   getConfigPath: function getConfigPath(configPath) {
@@ -31,36 +31,36 @@ module.exports = {
   },
   validateConfig: function validateConfig(token, project, locales, format, root, outputPath, stripEmpty) {
     if (!token) {
-      throw new Error('No `token` in ENV');
+      throw new Error("No `token` in ENV");
     } else {
       this.token = token;
     }
 
     if (!project) {
-      throw new Error('No `project` in config file');
+      throw new Error("No `project` in config file");
     } else {
       this.project = project;
     }
 
     if (!Array.isArray(locales) || locales.length === 0) {
-      throw new Error('No `locales` in config file');
+      throw new Error("No `locales` in config file");
     } else {
       this.locales = locales;
     }
 
-    if (format && typeof format === 'string') {
+    if (format && typeof format === "string") {
       this.format = format;
     }
 
-    if (root && typeof root === 'boolean') {
+    if (root && typeof root === "boolean") {
       this.root = root;
     }
 
-    if (outputPath && typeof outputPath === 'string') {
+    if (outputPath && typeof outputPath === "string") {
       this.outputPath = outputPath;
     }
 
-    if (stripEmpty && typeof stripEmpty === 'boolean') {
+    if (stripEmpty && typeof stripEmpty === "boolean") {
       this.stripEmpty = stripEmpty;
     }
 
@@ -71,7 +71,7 @@ module.exports = {
       return;
     }
 
-    var localeSegments = locale.replace('-', '_').split('_');
+    var localeSegments = locale.replace("-", "_").split("_");
     var newLocale = [];
     newLocale.push(localeSegments[0].toLowerCase()); // two segment locale
 
@@ -79,13 +79,13 @@ module.exports = {
       newLocale.push(localeSegments[1].toUpperCase());
     }
 
-    return newLocale.join('_');
+    return newLocale.join("_");
   },
   downloadTranslation: function downloadTranslation(locale) {
     var normalizedLocale = this.normalizeLocale(locale);
 
     if (!normalizedLocale) {
-      throw new Error('No locale passed to download function');
+      throw new Error("No locale passed to download function");
     } // if output folder doesn't exist we create it
 
 
@@ -113,19 +113,19 @@ module.exports = {
         }
 
         response.pipe(file);
-        file.on('finish', function () {
+        file.on("finish", function () {
           var newBufferFile = fs.readFileSync(filePath);
 
           if (bufferFile && bufferFile.equals(newBufferFile)) {
-            log('yellow', "Generating \"".concat(locale, "\" translation. Skipped."));
+            log("yellow", "Generating \"".concat(locale, "\" translation. Skipped."));
           } else {
-            log('green', "Generating \"".concat(locale, "\" translation. Done."));
+            log("green", "Generating \"".concat(locale, "\" translation. Done."));
           }
 
           resolve();
         });
-      }).on('error', function (e) {
-        log('red', e);
+      }).on("error", function (e) {
+        log("red", e);
       });
     });
   }

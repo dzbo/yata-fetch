@@ -1,20 +1,20 @@
-const https = require('https');
-const fs = require('fs');
-const path = require('path');
-const log = require('./log');
+const https = require("https");
+const fs = require("fs");
+const path = require("path");
+const log = require("./log");
 
 module.exports = {
-  config:            null,
-  defaultConfigPath: './yata.json',
-  configPath:        null,
-  token:             null,
-  project:           null,
-  locales:           [],
-  format:            'yml',
-  root:              false,
-  outputPath:        'translations',
-  stripEmpty:        false,
-  apiHost:           null,
+  config: null,
+  defaultConfigPath: "./yata.json",
+  configPath: null,
+  token: null,
+  project: null,
+  locales: [],
+  format: "yml",
+  root: false,
+  outputPath: "translations",
+  stripEmpty: false,
+  apiHost: null,
 
   getConfigPath(configPath) {
     if (configPath) {
@@ -26,38 +26,46 @@ module.exports = {
     return this.configPath;
   },
 
-  validateConfig(token, project, locales, format, root, outputPath, stripEmpty) {
+  validateConfig(
+    token,
+    project,
+    locales,
+    format,
+    root,
+    outputPath,
+    stripEmpty
+  ) {
     if (!token) {
-      throw new Error('No `token` in ENV');
+      throw new Error("No `token` in ENV");
     } else {
       this.token = token;
     }
 
     if (!project) {
-      throw new Error('No `project` in config file');
+      throw new Error("No `project` in config file");
     } else {
       this.project = project;
     }
 
     if (!Array.isArray(locales) || locales.length === 0) {
-      throw new Error('No `locales` in config file');
+      throw new Error("No `locales` in config file");
     } else {
       this.locales = locales;
     }
 
-    if (format && typeof format === 'string') {
+    if (format && typeof format === "string") {
       this.format = format;
     }
 
-    if (root && typeof root === 'boolean') {
+    if (root && typeof root === "boolean") {
       this.root = root;
     }
 
-    if (outputPath && typeof outputPath === 'string') {
+    if (outputPath && typeof outputPath === "string") {
       this.outputPath = outputPath;
     }
 
-    if (stripEmpty && typeof stripEmpty === 'boolean') {
+    if (stripEmpty && typeof stripEmpty === "boolean") {
       this.stripEmpty = stripEmpty;
     }
 
@@ -65,9 +73,11 @@ module.exports = {
   },
 
   normalizeLocale(locale) {
-    if (!locale) { return; }
+    if (!locale) {
+      return;
+    }
 
-    const localeSegments = locale.replace('-', '_').split('_');
+    const localeSegments = locale.replace("-", "_").split("_");
     let newLocale = [];
     newLocale.push(localeSegments[0].toLowerCase());
 
@@ -76,13 +86,15 @@ module.exports = {
       newLocale.push(localeSegments[1].toUpperCase());
     }
 
-    return newLocale.join('_');
+    return newLocale.join("_");
   },
 
   downloadTranslation(locale) {
     const normalizedLocale = this.normalizeLocale(locale);
 
-    if (!normalizedLocale) { throw new Error('No locale passed to download function'); }
+    if (!normalizedLocale) {
+      throw new Error("No locale passed to download function");
+    }
 
     // if output folder doesn't exist we create it
     if (!fs.existsSync(this.outputPath)) {
@@ -104,27 +116,29 @@ module.exports = {
     const file = fs.createWriteStream(filePath);
 
     return new Promise((resolve, reject) => {
-      https.get(url, response => {
-        const { statusCode } = response;
+      https
+        .get(url, (response) => {
+          const { statusCode } = response;
 
-        if (statusCode !== 200) {
-          return reject(`Request Failed.\nStatus Code: ${statusCode}`);
-        }
-
-        response.pipe(file);
-        file.on('finish', () => {
-          const newBufferFile = fs.readFileSync(filePath);
-
-          if (bufferFile && bufferFile.equals(newBufferFile)) {
-            log('yellow', `Generating "${locale}" translation. Skipped.`);
-          } else {
-            log('green', `Generating "${locale}" translation. Done.`);
+          if (statusCode !== 200) {
+            return reject(`Request Failed.\nStatus Code: ${statusCode}`);
           }
-          resolve();
+
+          response.pipe(file);
+          file.on("finish", () => {
+            const newBufferFile = fs.readFileSync(filePath);
+
+            if (bufferFile && bufferFile.equals(newBufferFile)) {
+              log("yellow", `Generating "${locale}" translation. Skipped.`);
+            } else {
+              log("green", `Generating "${locale}" translation. Done.`);
+            }
+            resolve();
+          });
+        })
+        .on("error", (e) => {
+          log("red", e);
         });
-      }).on('error', e => {
-        log('red', e);
-      });
     });
-  }
+  },
 };
