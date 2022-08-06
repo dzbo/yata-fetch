@@ -1,0 +1,15 @@
+# compiled output
+/dist/
+
+# dependencies
+/node_modules/
+
+# misc
+!.*
+.eslintcache
+/translations/
+eslintrc
+.lintstagedrc.json
+tsconfig.json
+.eslintrc
+package-lock.json

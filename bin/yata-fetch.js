@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-const cli = require('../dist/cli');
+import cli from '../dist/cli.cjs'
 
-cli();
+cli()

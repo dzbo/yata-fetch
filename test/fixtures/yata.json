@@ -1,9 +1,7 @@
 {
   "token": "YATA_DEV_TOKEN",
-  "project": "1",
-  "locales": [
-    "pl_PL", "de_DE"
-  ],
+  "project": "UVV6Rm1yc2JZbS9NcVBUWW96U2RjTldSREFtbDNKQVhHc2JlT0J3T2ZGVT0=",
+  "locales": ["pl_PL", "en_US"],
   "format": "yml",
   "root": false,
   "outputPath": "./translations",
