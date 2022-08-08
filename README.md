@@ -1,5 +1,7 @@
 # yata-fetch
 
+[![Test](https://github.com/dzbo/yata-fetch/actions/workflows/test.yaml/badge.svg?branch=master)](https://github.com/dzbo/yata-fetch/actions/workflows/test.yaml) [![Publish to NPM](https://github.com/dzbo/yata-fetch/actions/workflows/publish.yaml/badge.svg)](https://github.com/dzbo/yata-fetch/actions/workflows/publish.yaml)
+
 Welcome to Yata integration package, this package will allow you to easy get your translations from http://yatapp.net service.
 
 ## Installation
