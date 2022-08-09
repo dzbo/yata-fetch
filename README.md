@@ -83,6 +83,10 @@ and simply call with `npm run yata-fetch`
 
 - Open an Issue
 
+## Collaboration
+
+- Open an Pull Request
+
 ## Package Maintenance
 
 ### Installation
@@ -98,4 +102,16 @@ and simply call with `npm run yata-fetch`
 
 - `npm run build`
 
-Build files are stored in `dist` folder.
+### Release
+
+- `npm version <major|minor|patch>`
+- `git push origin --tags`
+- create new release entry in Github (optional)
+
+When Github Action detect new version there will be automatic release to NPM.
+
+## License
+
+[MIT](https://opensource.org/licenses/MIT)
+
+Copyright (c) 2017-present, Dominik Zborowski
