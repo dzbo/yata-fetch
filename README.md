@@ -83,10 +83,6 @@ and simply call with `npm run yata-fetch`
 
 - Open an Issue
 
-## Contributing
-
-This project uses `yarn` as a package manager and `gulp` as task runner.
-
 ## Package Maintenance
 
 ### Installation
