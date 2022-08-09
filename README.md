@@ -25,7 +25,7 @@ You can check token in your organization settings.
 
 Example `.yata.json` file:
 
-```
+```json
 {
   "token": "MY_YATA_API_TOKEN",
   "project": "XXX",
@@ -70,7 +70,7 @@ Hint:
 
 It's best to create scripts for generating translations in `package.json` file. For example:
 
-```
+```json
 "scripts": {
   "yata-fetch": "yata-fetch --config .yata.json"
   "yata-fetch:en": "yata-fetch --config .yata.json --locale en_US"
@@ -81,33 +81,40 @@ and simply call with `npm run yata-fetch`
 
 ## Problems?
 
-- Open an Issue
+If you find some problems or bug in the package please open an Issue.
 
 ## Collaboration
 
-- Open an Pull Request
+Want help to develop this package? Please open a Pull Request.
 
 ## Package Maintenance
 
 ### Installation
 
-- `git clone` this repository
-- `npm install`
+```
+git clone <this repository>
+npm install
+```
 
-#### Running Tests
+### Running Tests
 
-- `npm run test`
+```
+npm run test
+```
 
 ### Building
 
-- `npm run build`
+```
+npm run build
+```
 
 ### Release
 
-- `npm version <major|minor|patch>`
-- `git push origin --tags`
-- create new release entry in Github (optional)
-
+```
+npm version <major|minor|patch>
+git push origin --tags
+```
+Optionally create new release entry in Github Releases.
 When Github Action detect new version there will be automatic release to NPM.
 
 ## License
