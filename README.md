@@ -111,6 +111,10 @@ yarn build
 yarn upgrade-interactive
 ```
 
+### Committing Changes
+
+Repo follow [conventional commit](https://github.com/conventional-changelog/commitlint/#what-is-commitlint) message format, make sure you prefix your commit message with "fix", "feature", "chore", etc..
+
 ### Release
 
 ```
