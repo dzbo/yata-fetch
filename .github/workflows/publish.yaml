@@ -14,7 +14,11 @@ jobs:
         run: yarn install
       - name: Build 🔧
         run: yarn build
-      - name: Publish 📦
-        run: npm publish
+      - name: Configure npm
+        run: |
+          echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
+          cat .npmrc
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish 📦
+        run: npm publish
