@@ -114,7 +114,7 @@ yarn upgrade-interactive
 ### Release
 
 ```
-yarn version <major|minor|patch>
+npm version <major|minor|patch>
 git push origin --tags
 ```
 
