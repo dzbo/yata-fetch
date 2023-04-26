@@ -1,6 +1,7 @@
 {
   "name": "yata-fetch",
-  "version": "2.0.2",
+  "version": "2.1.0",
+  "packageManager": "yarn@3.5.0",
   "type": "module",
   "description": "Adds CLI interface for importing translation files from Yata",
   "license": "MIT",
@@ -17,9 +18,7 @@
     "type": "git",
     "url": "git://github.com/dzbo/yata-fetch.git"
   },
-  "bin": {
-    "yata-fetch": "./bin/yata-fetch.js"
-  },
+  "bin": "./bin/yata-fetch.js",
   "scripts": {
     "build": "vite build",
     "generate": "node bin/yata-fetch.js --config test/fixtures/yata.json",
