@@ -6,6 +6,7 @@ Welcome to Yata integration package, this package will allow you to easy get you
 
 ## Installation
 
+`yarn add yata-fetch -D`
 `npm install yata-fetch -D`
 
 ## Usage
@@ -29,9 +30,7 @@ Example `.yata.json` file:
 {
   "token": "MY_YATA_API_TOKEN",
   "project": "XXX",
-  "locales": [
-    "en_US", "de_DE"
-  ],
+  "locales": ["en_US", "de_DE"],
   "format": "yml",
   "root": false,
   "outputPath": "./translations",
@@ -66,9 +65,7 @@ Example:
 $ yata-fetch --config .yata.json --locale en_US
 ```
 
-Hint:
-
-It's best to create scripts for generating translations in `package.json` file. For example:
+It's recommended to create scripts for generating translations in `package.json` file. For example:
 
 ```json
 "scripts": {
@@ -77,7 +74,7 @@ It's best to create scripts for generating translations in `package.json` file. 
 }
 ```
 
-and simply call with `npm run yata-fetch`
+and simply call with `yarn yata-fetch` or `npm run yata-fetch`
 
 ## Problems?
 
@@ -93,27 +90,34 @@ Want help to develop this package? Please open a Pull Request.
 
 ```
 git clone <this repository>
-npm install
+yarn install
 ```
 
 ### Running Tests
 
 ```
-npm run test
+yarn test
 ```
 
 ### Building
 
 ```
-npm run build
+yarn build
+```
+
+### Upgrading
+
+```
+yarn upgrade-interactive
 ```
 
 ### Release
 
 ```
-npm version <major|minor|patch>
+yarn version <major|minor|patch>
 git push origin --tags
 ```
+
 Optionally create new release entry in Github Releases.
 When Github Action detect new version there will be automatic release to NPM.
 
