@@ -1,6 +1,6 @@
 {
   "name": "yata-fetch",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "packageManager": "yarn@3.5.0",
   "type": "module",
   "description": "Adds CLI interface for importing translation files from Yata",
