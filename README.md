@@ -1,6 +1,6 @@
 # yata-fetch
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dzbo/yata-fetch/Test) [![NPM](https://img.shields.io/npm/v/yata-fetch)](https://www.npmjs.com/package/yata-fetch) ![NPM](https://img.shields.io/npm/l/yata-fetch) ![npms.io (maintenance)](https://img.shields.io/npms-io/quality-score/yata-fetch) ![npms.io (maintenance)](https://img.shields.io/npms-io/maintenance-score/yata-fetch)
+[![NPM](https://img.shields.io/npm/v/yata-fetch)](https://www.npmjs.com/package/yata-fetch) ![NPM](https://img.shields.io/npm/l/yata-fetch) ![npms.io (maintenance)](https://img.shields.io/npms-io/quality-score/yata-fetch) ![npms.io (maintenance)](https://img.shields.io/npms-io/maintenance-score/yata-fetch)
 
 Welcome to Yata integration package, this package will allow you to easy get your translations from [Yata](https://run.yatapp.net/) service.
 
