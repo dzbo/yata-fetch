@@ -6,7 +6,7 @@ Welcome to Yata integration package, this package will allow you to easy get you
 
 ## Installation
 
-`yarn add yata-fetch -D`
+`pnpm add yata-fetch -D`
 `npm install yata-fetch -D`
 
 ## Usage
@@ -74,7 +74,7 @@ It's recommended to create scripts for generating translations in `package.json`
 }
 ```
 
-and simply call with `yarn yata-fetch` or `npm run yata-fetch`
+and simply call with `pnpm yata-fetch` or `npm run yata-fetch`
 
 ## Problems?
 
@@ -88,27 +88,27 @@ Want help to develop this package? Please open a Pull Request.
 
 ### Installation
 
-```
+```bash
 git clone <this repository>
-yarn install
+pnpm install
 ```
 
 ### Running Tests
 
-```
-yarn test
+```bash
+pnpm test
 ```
 
 ### Building
 
-```
-yarn build
+```bash
+pnpm build
 ```
 
 ### Upgrading
 
-```
-yarn upgrade-interactive
+```bash
+pnpm update --interactive
 ```
 
 ### Release

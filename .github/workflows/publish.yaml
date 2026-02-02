@@ -15,10 +15,12 @@ jobs:
         with:
           node-version: '25.5.0'
           registry-url: 'https://registry.npmjs.org'
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
       - name: Install
-        run: yarn install
+        run: pnpm install
       - name: Build 🔧
-        run: yarn build
+        run: pnpm build
       - name: Configure npm
         run: |
           cat << EOF > "$HOME/.npmrc"
