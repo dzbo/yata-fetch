@@ -16,20 +16,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '25.5.0'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
       - name: Install
-        run: yarn install
+        run: pnpm install
 
       - name: Lint Scripts
-        run: yarn lint:eslint
+        run: pnpm lint:eslint
 
       - name: Lint Format
-        run: yarn lint:fmt
+        run: pnpm lint:fmt
 
       - name: Lint Types
-        run: yarn lint:ts
+        run: pnpm lint:ts
 
       - name: Unit Test
-        run: yarn test
+        run: pnpm test
 
       - name: Build
-        run: yarn build
+        run: pnpm build
