@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Adds CLI interface for importing translation files from Yata",
   "license": "MIT",
-  "main": "./dist/yata",
+  "main": "./dist/cli.cjs",
   "author": "Dominik Zborowski <dominik.zborowski@gmail.com>",
   "keywords": [
     "yata",
