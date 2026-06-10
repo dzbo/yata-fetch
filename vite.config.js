@@ -8,6 +8,9 @@ export default defineConfig({
       formats: ['cjs'],
       fileName: 'cli',
     },
+    rollupOptions: {
+      external: ['util', 'fs', 'path', 'https', 'http', 'stream', 'events', 'buffer', 'os', 'crypto'],
+    },
   },
   test: {
     environment: 'node',
