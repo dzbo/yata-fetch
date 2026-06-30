@@ -1,6 +1,6 @@
 {
   "name": "yata-fetch",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "packageManager": "pnpm@10.4.1",
   "type": "module",
   "description": "Adds CLI interface for importing translation files from Yata",
@@ -18,7 +18,10 @@
     "type": "git",
     "url": "git://github.com/dzbo/yata-fetch.git"
   },
-  "files": ["dist", "bin"],
+  "files": [
+    "dist",
+    "bin"
+  ],
   "bin": {
     "yata-fetch": "./bin/yata-fetch.js"
   },
