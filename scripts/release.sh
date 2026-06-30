@@ -8,7 +8,12 @@ select TYPE in patch minor major; do
   esac
 done
 
-NEW_VERSION=$(npm version $TYPE --no-git-tag-version | sed 's/^v//')
+npm version $TYPE --no-git-tag-version
+NEW_VERSION=$(node -p "require('./package.json').version")
+
+git add package.json
+git commit -m "chore: Release $NEW_VERSION"
+git push
 
 git tag "v$NEW_VERSION"
 git push origin "v$NEW_VERSION"
