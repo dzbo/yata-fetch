@@ -113,13 +113,13 @@ pnpm update --interactive
 
 ### Release
 
-```
-npm version <major|minor|patch>
-git push origin --tags
+Run the interactive release script:
+
+```bash
+pnpm release
 ```
 
-Optionally create new release entry in Github Releases.
-When Github Action detect new version there will be automatic release to NPM.
+It will ask whether this is a `patch`, `minor`, or `major` release, bump the version in `package.json`, create a git tag, and push it. GitHub Actions will automatically publish to npm when the tag is detected.
 
 ## License
 

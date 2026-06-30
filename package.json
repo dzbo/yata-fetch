@@ -31,7 +31,8 @@
     "lint": "npm-run-all --aggregate-output --continue-on-error --parallel \"lint:*\"",
     "lint:eslint": "eslint src",
     "lint:ts": "tsc --noEmit",
-    "lint:fmt": "prettier --check --log-level=warn --write ."
+    "lint:fmt": "prettier --check --log-level=warn --write .",
+    "release": "bash scripts/release.sh"
   },
   "dependencies": {
     "nconf": "0.13.0"
