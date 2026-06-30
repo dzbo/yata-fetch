@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  shell-quote: ^1.9.0
+  shell-quote: 1.9.0
 
 importers:
 
