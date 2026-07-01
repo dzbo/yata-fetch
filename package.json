@@ -3,6 +3,9 @@
   "version": "2.3.3",
   "packageManager": "pnpm@10.4.1",
   "type": "module",
+  "engines": {
+    "node": ">=22.22.1"
+  },
   "description": "Adds CLI interface for importing translation files from Yata",
   "license": "MIT",
   "main": "./dist/cli.cjs",
@@ -27,7 +30,7 @@
   },
   "scripts": {
     "build": "vite build",
-    "prepare": "vite build",
+    "prepare": "husky || true && vite build",
     "generate": "node bin/yata-fetch.js --config test/fixtures/yata.json",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
@@ -50,6 +53,8 @@
     "c8": "11.0.0",
     "eslint": "10.6.0",
     "globals": "17.7.0",
+    "husky": "9.1.7",
+    "lint-staged": "17.0.8",
     "npm-run-all": "4.1.5",
     "prettier": "3.9.4",
     "typescript": "^6.0.3",
@@ -64,5 +69,9 @@
     "overrides": {
       "shell-quote": "1.9.0"
     }
+  },
+  "lint-staged": {
+    "src/**/*.ts": "eslint",
+    "*": "prettier --write --ignore-unknown"
   }
 }

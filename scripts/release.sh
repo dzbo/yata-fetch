@@ -1,14 +1,23 @@
 #!/bin/bash
 set -e
 
-echo "Release type?"
-select TYPE in patch minor major; do
-  case $TYPE in
-    patch|minor|major) break ;;
-  esac
-done
+TYPE=$1
 
-npm version $TYPE --no-git-tag-version
+if [ -z "$TYPE" ]; then
+  echo "Release type?"
+  select TYPE in patch minor major; do
+    case $TYPE in
+      patch|minor|major) break ;;
+    esac
+  done
+fi
+
+case $TYPE in
+  patch|minor|major) ;;
+  *) echo "Invalid release type: $TYPE (expected patch, minor, or major)" >&2; exit 1 ;;
+esac
+
+npm version "$TYPE" --no-git-tag-version
 NEW_VERSION=$(node -p "require('./package.json').version")
 
 git add package.json
