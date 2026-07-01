@@ -14,10 +14,10 @@ fi
 
 case $TYPE in
   patch|minor|major) ;;
-  *) echo "Invalid release type: $TYPE (expected patch, minor, or major)"; exit 1 ;;
+  *) echo "Invalid release type: $TYPE (expected patch, minor, or major)" >&2; exit 1 ;;
 esac
 
-npm version $TYPE --no-git-tag-version
+npm version "$TYPE" --no-git-tag-version
 NEW_VERSION=$(node -p "require('./package.json').version")
 
 git add package.json
