@@ -1,4 +1,4 @@
-type Color = 'red' | 'green' | 'yellow'
+export type Color = 'red' | 'green' | 'yellow'
 
 export default function (color: Color, message: string) {
   let code
