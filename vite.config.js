@@ -9,7 +9,18 @@ export default defineConfig({
       fileName: 'cli',
     },
     rollupOptions: {
-      external: ['util', 'fs', 'path', 'https', 'http', 'stream', 'events', 'buffer', 'os', 'crypto'],
+      external: [
+        'util',
+        'fs',
+        'path',
+        'https',
+        'http',
+        'stream',
+        'events',
+        'buffer',
+        'os',
+        'crypto',
+      ],
     },
   },
   test: {
