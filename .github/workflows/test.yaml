@@ -14,12 +14,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '25.5.0'
+          node-version: '24.19.0'
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -37,7 +37,7 @@ jobs:
         run: pnpm lint:ts
 
       - name: Unit Test
-        run: pnpm test
+        run: pnpm coverage
 
       - name: Build
         run: pnpm build
