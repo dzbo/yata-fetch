@@ -121,6 +121,10 @@ pnpm release
 
 It will ask whether this is a `patch`, `minor`, or `major` release, bump the version in `package.json`, create a git tag, and push it. GitHub Actions will automatically publish to npm when the tag is detected.
 
+Publishing credentials live in the `NPM_TOKEN` repository secret (Settings → Secrets and variables → Actions), which [`.github/workflows/publish.yaml`](.github/workflows/publish.yaml) writes into a temporary `.npmrc` on the runner. The token is never stored locally — your own `.npmrc` needs no auth entry to develop on this project.
+
+To rotate it, generate a new automation token at [npmjs.com/settings/dzbo/tokens](https://www.npmjs.com/settings/dzbo/tokens) and update the repository secret. An expired token surfaces as an `E401` failure in the publish workflow.
+
 ## License
 
 [MIT](https://opensource.org/licenses/MIT)
