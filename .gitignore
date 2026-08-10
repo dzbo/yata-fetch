@@ -28,4 +28,5 @@ dist-ssr
 
 # Claude Code — share settings.json, keep local overrides out
 .claude/settings.local.json
-
+.ai-workspace/**
+!.ai-workspace/.gitkeep
