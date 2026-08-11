@@ -12,6 +12,10 @@ jobs:
   build-lint-test:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      pull-requests: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -38,6 +42,12 @@ jobs:
 
       - name: Unit Test
         run: pnpm coverage
+
+      # Runs even when the coverage thresholds fail, so the PR comment is
+      # present precisely when coverage regressed.
+      - name: Report Coverage
+        if: always() && github.event_name == 'pull_request'
+        uses: davelosert/vitest-coverage-report-action@v2.12.2
 
       - name: Build
         run: pnpm build
