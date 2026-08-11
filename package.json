@@ -39,7 +39,7 @@
     "lint:ts": "tsc --noEmit",
     "lint:fmt": "prettier --check --log-level=warn --write .",
     "release": "bash scripts/release.sh",
-    "prepublishOnly": "pnpm lint && pnpm coverage && pnpm build"
+    "verify": "pnpm lint && pnpm coverage && pnpm build"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
