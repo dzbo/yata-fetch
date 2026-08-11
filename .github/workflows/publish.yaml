@@ -7,6 +7,13 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+
+    # id-token: write lets npm exchange a GitHub OIDC token for a short-lived
+    # publish credential (Trusted Publishing) — no NPM_TOKEN secret needed.
+    permissions:
+      contents: read
+      id-token: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -17,11 +24,12 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
+      # Node 24 ships npm 10.x; Trusted Publishing needs npm >=11.5.1.
+      - name: Upgrade npm for OIDC support
+        run: npm install -g npm@latest
       - name: Install
         run: pnpm install
       - name: Build 🔧
         run: pnpm build
       - name: Publish 📦
         run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
