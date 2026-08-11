@@ -3,6 +3,7 @@ import type { Config, Format } from './types'
 
 const FORMATS: readonly Format[] = ['yml', 'json']
 
+/** Keys valid in the JSON config file. */
 export const KNOWN_KEYS = [
   'token',
   'project',
@@ -11,9 +12,14 @@ export const KNOWN_KEYS = [
   'root',
   'outputPath',
   'stripEmpty',
-  'config',
-  'locale',
 ] as const
+
+/**
+ * CLI-only flags. Valid on argv but meaningless in the config file, so a
+ * config file containing one gets an unknown-key warning — it would
+ * otherwise be silently ignored.
+ */
+const CLI_ONLY_KEYS = ['config', 'locale'] as const
 
 const DEPRECATED: Record<string, string> = { strip_empty: 'stripEmpty' }
 
@@ -82,6 +88,14 @@ function warnUnknownKeys(file: Record<string, unknown>): void {
   for (const key of Object.keys(file)) {
     if (KNOWN_KEYS.includes(key as (typeof KNOWN_KEYS)[number])) continue
     if (key in DEPRECATED) continue
+
+    if (CLI_ONLY_KEYS.includes(key as (typeof CLI_ONLY_KEYS)[number])) {
+      log(
+        'yellow',
+        `⚠ \`${key}\` is a CLI flag, not a config key — it is ignored here. Pass \`--${key}\` instead.`
+      )
+      continue
+    }
 
     const suggestion = KNOWN_KEYS.map(known => ({
       known,

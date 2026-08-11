@@ -134,6 +134,21 @@ describe('downloadTranslation', () => {
     expect(unlinked).toContain(tmp)
   })
 
+  it('cleans up the tmp file when writeFile fails', async () => {
+    const { deps, unlinked, files } = makeFakeDeps({
+      existing: { [path]: 'original' },
+      writeFile: async () => {
+        throw new Error('ENOSPC')
+      },
+    })
+
+    await expect(
+      downloadTranslation(testConfig(), 'en_US', deps)
+    ).rejects.toThrow('ENOSPC')
+    expect(unlinked).toContain(tmp)
+    expect(files.get(path)).toBe('original')
+  })
+
   it('ignores cleanup failure and rethrows the original error', async () => {
     const { deps } = makeFakeDeps({
       rename: async () => {

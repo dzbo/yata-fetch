@@ -80,10 +80,10 @@ export async function downloadTranslation(
   const body = Buffer.from(await response.arrayBuffer())
 
   // Write to a tmp path first, then rename, so a failed request or write
-  // never truncates an existing translation file.
-  await deps.writeFile(tmpPath, body)
-
+  // never truncates an existing translation file. Both steps share one
+  // catch so a partial .tmp is never left behind.
   try {
+    await deps.writeFile(tmpPath, body)
     await deps.rename(tmpPath, filePath)
   } catch (error) {
     await deps.unlink(tmpPath).catch(() => undefined)

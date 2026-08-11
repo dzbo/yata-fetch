@@ -163,6 +163,23 @@ describe('loadConfig', () => {
     expect(spy.mock.calls.flat().join(' ')).toContain('zzzzzz')
   })
 
+  it.each(['locale', 'config'])(
+    'warns that `%s` in the config file is a CLI-only flag',
+    key => {
+      const spy = vi.spyOn(console, 'log').mockImplementation(() => {})
+      loadConfig(sources({ ...base, [key]: 'x' }))
+      const output = spy.mock.calls.flat().join(' ')
+      expect(output).toContain(key)
+      expect(output).toContain('CLI flag')
+    }
+  )
+
+  it('does not warn for CLI-only flags passed on argv', () => {
+    const spy = vi.spyOn(console, 'log').mockImplementation(() => {})
+    loadConfig(sources(base, { MY_TOKEN: 'secret' }, { locale: 'en_US' }))
+    expect(spy).not.toHaveBeenCalled()
+  })
+
   it('lets argv override the config file', () => {
     const config = loadConfig(
       sources(base, { MY_TOKEN: 'secret' }, { outputPath: 'from-argv' })
