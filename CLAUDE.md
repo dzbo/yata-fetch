@@ -72,7 +72,7 @@ Use [Conventional Commits](https://www.conventionalcommits.org/) prefixes (`feat
 
 ## Git workflow
 
-- Never commit directly to `master` — work on a branch and open a PR.
+- Never commit directly to `main` — work on a branch and open a PR.
 - Branch naming: `<type>/<description>` (e.g. `fix/publish-command`, `chore/upgrade-all-packages`), matching the commit type prefixes above.
 - A husky `pre-commit` hook runs `lint-staged` (eslint on staged `.ts` files, prettier on all staged files) before every commit — see `.husky/pre-commit` and the `lint-staged` field in `package.json`.
 
