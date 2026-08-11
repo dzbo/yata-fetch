@@ -21,18 +21,31 @@ pnpm release        # interactive release: bumps version, commits, tags, pushes 
 Run a single test file:
 
 ```bash
-pnpm vitest run src/path/to/file.test.ts
+pnpm vitest run test/unit/config.spec.ts
 ```
 
 ## Architecture
 
-The tool has three source files:
+Five focused modules, no shared mutable state:
 
-- **`src/cli.ts`** — entry point. Reads config via `nconf` in priority order: CLI argv → environment variables → JSON config file. Validates config then calls `yata.downloadTranslation()` for each locale.
-- **`src/yata.ts`** — core module (exported as a singleton object). Handles config validation, locale normalization (`en-US` → `en_US`), and downloads translation files via HTTPS streaming to the output path.
+- **`src/cli.ts`** — entry point. Parses argv, reads the JSON config file, calls `loadConfig()`, then downloads every locale via `Promise.allSettled`. Owns `process.exitCode` — 1 if any locale failed.
+- **`src/config.ts`** — `loadConfig()` merges argv → env → file, validates, and returns an immutable `Config`. Also warns on unknown and deprecated keys. `parseArgv()` handles `--key value` and `--key=value`.
+- **`src/download.ts`** — `downloadTranslation(config, locale, deps?, apiHost?)`. Fetches via native `fetch`, writes to a `.tmp` path, then renames — so a failure never truncates an existing file.
+- **`src/locale.ts`** — `normalizeLocale()` (`en-US` → `en_US`). Throws on blank input.
 - **`src/log.ts`** — colored console output (red/green/yellow ANSI codes).
+- **`src/types.ts`** — shared `Config`, `Format`, `Deps`, `DownloadResult`. Type-only, so it is excluded from coverage.
 
-Build target is CJS (`dist/cli.cjs`) via Vite. The `bin/yata-fetch.js` shell entry requires this compiled output.
+`Config` is an immutable value object passed explicitly into `downloadTranslation` — deliberately not a mutable singleton, which is what v2 had and what made its tests order-dependent.
+
+`downloadTranslation` takes its network and filesystem functions as an optional `deps` parameter (defaulting to the real ones). Tests pass fakes from `test/helpers/fakes.ts`, which is how every error branch is reachable without module mocking.
+
+Build target is CJS (`dist/cli.cjs`) via Vite. The `bin/yata-fetch.js` entry is ESM (the package is `"type": "module"`) and imports that CJS build through default interop.
+
+## Testing
+
+Coverage thresholds are set to **100%** for lines/branches/functions/statements in `vite.config.ts`, so CI fails if coverage regresses. Run `pnpm coverage` before opening a PR.
+
+If a branch is genuinely unreachable, prefer restructuring the code to remove it over adding an ignore comment. Do not lower the thresholds.
 
 ## Key design detail
 

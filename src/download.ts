@@ -7,7 +7,7 @@ import type { Config, Deps, DownloadResult } from './types'
 export const DEFAULT_API_HOST = 'https://api.yatapp.net'
 
 const realDeps: Deps = {
-  fetch: (...args) => globalThis.fetch(...args),
+  fetch: globalThis.fetch,
   mkdir,
   readFile,
   writeFile,
