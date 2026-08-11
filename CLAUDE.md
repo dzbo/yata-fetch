@@ -82,3 +82,4 @@ Use [Conventional Commits](https://www.conventionalcommits.org/) prefixes (`feat
 - `bin/yata-fetch.js` is ESM (the package is `"type": "module"`, so a `.js` file cannot use `require`) and imports the CJS build via default interop. It stays `.js` because Node executes it directly via shebang.
 - The `token` config field is an env var _name_, not the secret itself (see Key design detail above) — never treat it as a literal token value.
 - CI publishes to npm automatically from pushed version tags. Never run `npm publish` manually.
+- `typescript` is pinned to an exact version (no `^`) on purpose. `typescript-eslint` declares `typescript@>=4.8.4 <6.1.0` and **hard-errors** on TS 7.0 — eslint fails to load its config entirely, so linting breaks. Upstream tracks TS >=7.1 support in [typescript-eslint#10940](https://github.com/typescript-eslint/typescript-eslint/issues/10940). Don't loosen the pin until that lands.

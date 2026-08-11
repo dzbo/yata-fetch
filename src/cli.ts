@@ -17,15 +17,15 @@ export default async function cli(
 ): Promise<number> {
   try {
     const args = parseArgv(argv)
-    const configPath = args['config'] ?? DEFAULT_CONFIG_PATH
+    const configPath = args.config ?? DEFAULT_CONFIG_PATH
     const file = JSON.parse(await readFile(configPath, 'utf8')) as Record<
       string,
       unknown
     >
 
     const config = loadConfig({ argv: args, env, file })
-    const apiHost = env['YATA_API_HOST']
-    const locale = args['locale']
+    const apiHost = env.YATA_API_HOST
+    const locale = args.locale
     const locales = locale ? [locale] : config.locales
 
     const results = await Promise.allSettled(

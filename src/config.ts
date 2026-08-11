@@ -51,26 +51,31 @@ export function parseArgv(argv: string[]): Record<string, string> {
   return parsed
 }
 
-/** Levenshtein distance, used only for "did you mean" suggestions. */
+/**
+ * Levenshtein distance, used only for "did you mean" suggestions.
+ *
+ * Rolls a single row forward instead of building a full matrix. The non-null
+ * assertions are deliberate: the loop bounds guarantee every index is in
+ * range, and `noUncheckedIndexedAccess` would otherwise force `??` fallbacks
+ * that are provably unreachable and so break the 100% branch threshold.
+ */
 function distance(a: string, b: string): number {
-  const rows: number[][] = Array.from({ length: a.length + 1 }, (_, i) =>
-    Array.from({ length: b.length + 1 }, (_, j) =>
-      i === 0 ? j : j === 0 ? i : 0
-    )
-  )
+  let previous = Array.from({ length: b.length + 1 }, (_, j) => j)
 
   for (let i = 1; i <= a.length; i++) {
+    const current = [i]
+
     for (let j = 1; j <= b.length; j++) {
-      const cost = a[i - 1] === b[j - 1] ? 0 : 1
-      rows[i]![j] = Math.min(
-        rows[i - 1]![j]! + 1,
-        rows[i]![j - 1]! + 1,
-        rows[i - 1]![j - 1]! + cost
+      const cost = a.charAt(i - 1) === b.charAt(j - 1) ? 0 : 1
+      current.push(
+        Math.min(previous[j]! + 1, current[j - 1]! + 1, previous[j - 1]! + cost)
       )
     }
+
+    previous = current
   }
 
-  return rows[a.length]![b.length]!
+  return previous[b.length]!
 }
 
 function warnUnknownKeys(file: Record<string, unknown>): void {
@@ -157,7 +162,7 @@ export function loadConfig(sources: RawSources): Config {
   const stripEmptyRaw =
     'stripEmpty' in argv || 'stripEmpty' in file
       ? pick('stripEmpty')
-      : (file['strip_empty'] ?? false)
+      : (file.strip_empty ?? false)
 
   return {
     token,
