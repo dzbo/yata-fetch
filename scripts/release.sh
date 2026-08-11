@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+# Anchor to the repo root so the script works from any cwd — every step below
+# (package.json reads, npm version, git add) is relative to it.
+cd "$(git rev-parse --show-toplevel)"
+
 TYPE=$1
 
 if [ -z "$TYPE" ]; then
