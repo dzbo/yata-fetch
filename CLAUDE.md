@@ -47,6 +47,15 @@ Coverage thresholds are set to **100%** for lines/branches/functions/statements 
 
 If a branch is genuinely unreachable, prefer restructuring the code to remove it over adding an ignore comment. Do not lower the thresholds.
 
+## Comments
+
+- **`/** ... */` for what a function is** — a one-line summary on exported functions whose purpose isn't obvious from the signature. See `redactUrl` in `src/download.ts` and `parseArgv` in `src/config.ts`.
+- **`//` for why a line is the way it is** — non-obvious reasoning only. See the tmp-then-rename note in `src/download.ts`.
+- **No `@param` / `@returns` tags.** The TypeScript signatures already carry that information, so tags duplicate it and rot. Nothing generates docs from this package.
+- **Exception — `bin/yata-fetch.js`** uses a JSDoc `@type` annotation because it is `.js` and cannot use TS syntax. That is type annotation doing real work, not documentation.
+
+Don't add comments that restate the code. If a comment is needed to explain _what_ a block does, prefer renaming or extracting a function.
+
 ## Key design detail
 
 The `token` field in the JSON config is **the name of an environment variable**, not the token itself. For example `"token": "MY_YATA_API_TOKEN"` means the CLI reads `process.env.MY_YATA_API_TOKEN` at runtime. This indirection is intentional so tokens are never stored in config files.
@@ -69,6 +78,7 @@ Use [Conventional Commits](https://www.conventionalcommits.org/) prefixes (`feat
 
 ## Things to get right
 
-- Despite `"type": "module"` in `package.json`, the build output is CJS (`dist/cli.cjs`) — this is intentional for `require()`-based CLI consumption via `bin/yata-fetch.js`. Don't switch it to ESM output.
+- Despite `"type": "module"` in `package.json`, the build output is CJS (`dist/cli.cjs`) — this is intentional. Don't switch it to ESM output.
+- `bin/yata-fetch.js` is ESM (the package is `"type": "module"`, so a `.js` file cannot use `require`) and imports the CJS build via default interop. It stays `.js` because Node executes it directly via shebang.
 - The `token` config field is an env var _name_, not the secret itself (see Key design detail above) — never treat it as a literal token value.
 - CI publishes to npm automatically from pushed version tags. Never run `npm publish` manually.
