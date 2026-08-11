@@ -1,48 +1,50 @@
-import { IFileOptions } from 'nconf'
-import yata from './yata'
+import { readFile } from 'node:fs/promises'
 import log from './log'
+import { loadConfig, parseArgv } from './config'
+import { downloadTranslation } from './download'
+import type { Deps } from './types'
 
-const nconf = require('nconf')
+const DEFAULT_CONFIG_PATH = './yata.json'
 
-export default async function () {
-  // read argv for potential custom config path
-  nconf.argv()
+function describeError(error: unknown): string {
+  return error instanceof Error ? error.message : String(error)
+}
 
-  // read ENV for token
-  nconf.env()
-
-  // load config path
-  nconf.file({ file: yata.getConfigPath(nconf.get('config')) } as IFileOptions)
-
-  // setup API host
-  yata.apiHost = nconf.get('YATA_API_HOST') || 'https://api.yatapp.net'
-
+export default async function cli(
+  argv: string[] = process.argv.slice(2),
+  env: NodeJS.ProcessEnv = process.env,
+  deps?: Deps
+): Promise<number> {
   try {
-    if (
-      yata.validateConfig(
-        nconf.get(nconf.get('token')),
-        nconf.get('project'),
-        nconf.get('locales'),
-        nconf.get('format'),
-        nconf.get('root'),
-        nconf.get('outputPath'),
-        nconf.get('strip_empty')
-      )
-    ) {
-      // if passed locale explicit download just one
-      if (nconf.get('locale')) {
-        await yata.downloadTranslation(nconf.get('locale'))
-      } else {
-        for (const locale of yata.locales) {
-          await yata.downloadTranslation(locale)
-        }
-      }
+    const args = parseArgv(argv)
+    const configPath = args.config ?? DEFAULT_CONFIG_PATH
+    const file = JSON.parse(await readFile(configPath, 'utf8')) as Record<
+      string,
+      unknown
+    >
+
+    const config = loadConfig({ argv: args, env, file })
+    const apiHost = env.YATA_API_HOST
+    const locale = args.locale
+    const locales = locale ? [locale] : config.locales
+
+    const results = await Promise.allSettled(
+      locales.map(entry => downloadTranslation(config, entry, deps, apiHost))
+    )
+
+    const failures = results.filter(
+      (result): result is PromiseRejectedResult => result.status === 'rejected'
+    )
+
+    for (const failure of failures) {
+      log('red', describeError(failure.reason))
     }
+
+    process.exitCode = failures.length > 0 ? 1 : 0
+    return process.exitCode
   } catch (error) {
-    if (error instanceof Error) {
-      log('red', error.message)
-    } else if (typeof error === 'string') {
-      log('red', error)
-    }
+    log('red', describeError(error))
+    process.exitCode = 1
+    return 1
   }
 }
