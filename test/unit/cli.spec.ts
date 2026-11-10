@@ -110,6 +110,50 @@ describe('cli', () => {
     expect(code).toBe(1)
   })
 
+  it('ends with a green summary line when nothing failed', async () => {
+    const spy = vi.spyOn(console, 'log').mockImplementation(() => {})
+    const { deps } = makeFakeDeps({
+      existing: { 'translations/pl_PL.yml': 'body' },
+    })
+
+    await cli(['--config', configFile], env, deps)
+
+    expect(spy).toHaveBeenLastCalledWith(
+      '\x1b[32m%s\x1b[0m',
+      '2 locales: 1 written, 1 skipped, 0 failed'
+    )
+  })
+
+  it('ends with a red summary line when a locale failed', async () => {
+    const spy = vi.spyOn(console, 'log').mockImplementation(() => {})
+    const { deps } = makeFakeDeps({
+      existing: { 'translations/pl_PL.yml': 'body' },
+      fetch: async (url: string | URL | Request) =>
+        String(url).includes('en_US')
+          ? new Response('', { status: 500 })
+          : new Response('body', { status: 200 }),
+    })
+
+    await cli(['--config', configFile], env, deps)
+
+    expect(spy).toHaveBeenLastCalledWith(
+      '\x1b[31m%s\x1b[0m',
+      '2 locales: 0 written, 1 skipped, 1 failed'
+    )
+  })
+
+  it('uses the singular in the summary for a single locale', async () => {
+    const spy = vi.spyOn(console, 'log').mockImplementation(() => {})
+    const { deps } = makeFakeDeps()
+
+    await cli(['--config', configFile, '--locale', 'en_US'], env, deps)
+
+    expect(spy).toHaveBeenLastCalledWith(
+      '\x1b[32m%s\x1b[0m',
+      '1 locale: 1 written, 0 skipped, 0 failed'
+    )
+  })
+
   it('continues past one failure and reports all of them', async () => {
     const spy = vi.spyOn(console, 'log').mockImplementation(() => {})
     let call = 0
