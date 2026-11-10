@@ -30,3 +30,7 @@ dist-ssr
 .claude/settings.local.json
 .ai-workspace/**
 !.ai-workspace/.gitkeep
+
+# Agent workflow: local state and personal settings (setup-repo)
+.agent-context/local/*
+!.agent-context/local/.gitkeep
