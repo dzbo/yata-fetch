@@ -24,8 +24,9 @@ Vite to a CJS bundle, tested with vitest.
 pnpm install        # install dependencies
 pnpm build          # compile TypeScript → dist/cli.cjs via Vite
 pnpm test           # run tests with vitest
-pnpm coverage       # run tests with coverage report (run before opening a PR)
+pnpm coverage       # run tests with coverage report
 pnpm lint           # eslint + tsc type-check + prettier in parallel
+pnpm verify         # lint + coverage + build (run before opening a PR)
 pnpm vitest run test/unit/config.spec.ts   # a single test file
 ```
 
@@ -34,7 +35,7 @@ staged files) — see `.husky/pre-commit` and the `lint-staged` field in `packag
 
 ## Architecture
 
-Five focused modules, no shared mutable state:
+Six focused modules, no shared mutable state:
 
 - **`src/cli.ts`** — entry point. Parses argv, reads the JSON config file, calls `loadConfig()`, then downloads every locale via `Promise.allSettled`. Owns `process.exitCode` — 1 if any locale failed.
 - **`src/config.ts`** — `loadConfig()` merges argv → env → file, validates, and returns an immutable `Config`. Warns on unknown and deprecated keys. `parseArgv()` handles `--key value` and `--key=value`.
