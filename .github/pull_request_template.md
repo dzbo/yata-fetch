@@ -9,7 +9,7 @@
 ## Verification
 
 - [ ] `pnpm verify` passes (lint, tests, 100% coverage, build)
-- [ ] README / CLAUDE.md updated if behavior changed
+- [ ] README / AGENTS.md updated if behavior changed
 
 ## Notes
 
