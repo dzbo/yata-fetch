@@ -2,12 +2,22 @@ import { readFile } from 'node:fs/promises'
 import log from './log'
 import { loadConfig, parseArgv } from './config'
 import { downloadTranslation } from './download'
-import type { Deps } from './types'
+import type { Deps, DownloadResult } from './types'
 
 const DEFAULT_CONFIG_PATH = './yata.json'
 
 function describeError(error: unknown): string {
   return error instanceof Error ? error.message : String(error)
+}
+
+function summarize(results: PromiseSettledResult<DownloadResult>[]): string {
+  const count = (status: DownloadResult['status']) =>
+    results.filter(
+      result => result.status === 'fulfilled' && result.value.status === status
+    ).length
+  const failed = results.filter(result => result.status === 'rejected').length
+  const noun = results.length === 1 ? 'locale' : 'locales'
+  return `${results.length} ${noun}: ${count('written')} written, ${count('skipped')} skipped, ${failed} failed`
 }
 
 export default async function cli(
@@ -39,6 +49,8 @@ export default async function cli(
     for (const failure of failures) {
       log('red', describeError(failure.reason))
     }
+
+    log(failures.length > 0 ? 'red' : 'green', summarize(results))
 
     process.exitCode = failures.length > 0 ? 1 : 0
     return process.exitCode
